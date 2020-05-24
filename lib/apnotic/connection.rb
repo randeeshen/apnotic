@@ -119,8 +119,8 @@ module Apnotic
           ctx.key  = p12.key
           ctx.cert = p12.certificate
         rescue OpenSSL::PKCS12::PKCS12Error
-          ctx.key  = OpenSSL::PKey::RSA.new(certificate, @cert_pass)
           ctx.cert = OpenSSL::X509::Certificate.new(certificate)
+          ctx.key  = ctx.cert.public_key
         end
         ctx
       end
